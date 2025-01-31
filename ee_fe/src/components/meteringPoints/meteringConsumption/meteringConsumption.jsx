@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import MeteringService from "../../../services/MeteringService";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from "recharts";
 
 const MeteringConsumption = () => {
     const { meteringPointId } = useParams();
     const [consumptionData, setConsumptionData] = useState([]);
+    const [filteredData, setFilteredData] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
     useEffect(() => {
         fetchConsumptionData();
-    }, [meteringPointId]); // Fetch when meteringPointId changes
+    }, [meteringPointId]);
+
+    useEffect(() => {
+        groupDataByMonth(selectedYear);
+    }, [consumptionData, selectedYear]);
 
     const fetchConsumptionData = async () => {
         try {
@@ -30,24 +37,62 @@ const MeteringConsumption = () => {
         }
     };
 
+    const groupDataByMonth = (year) => {
+        const monthlyData = Array(12).fill(0);
+
+        consumptionData.forEach(entry => {
+            const date = new Date(entry.consumption_time);
+            if (date.getFullYear() === year) {
+                const monthIndex = date.getMonth();
+                monthlyData[monthIndex] += entry.amount;
+            }
+        });
+
+        const formattedData = monthlyData.map((value, index) => ({
+            month: new Date(0, index).toLocaleString("en", { month: "short" }),
+            consumption: value
+        }));
+
+        setFilteredData(formattedData);
+    };
+
+    const handleYearChange = (event) => {
+        setSelectedYear(parseInt(event.target.value));
+    };
+
+    const availableYears = [...new Set(consumptionData.map(entry => new Date(entry.consumption_time).getFullYear()))].sort();
+
     return (
         <div>
-            <h1>Consumption Data for Metering Point {meteringPointId}</h1>
+            <h1>Monthly Consumption for Metering Point {meteringPointId}</h1>
+
             {loading ? (
                 <p>Loading...</p>
             ) : error ? (
                 <p style={{ color: "red" }}>{error}</p>
-            ) : consumptionData.length > 0 ? (
-                <ul>
-                    <pre>{JSON.stringify(consumptionData, null, 2)}</pre>
-                    {consumptionData.map((entry, index) => (
-                        <li key={index}>
-                            <strong>Date:</strong> {entry.date} | <strong>Consumption:</strong> {entry.amount} kWh
-                        </li>
-                    ))}
-                </ul>
             ) : (
-                <p>No consumption data available.</p>
+                <>
+                    <label>Select Year: </label>
+                    <select value={selectedYear} onChange={handleYearChange}>
+                        {availableYears.map(year => (
+                            <option key={year} value={year}>{year}</option>
+                        ))}
+                    </select>
+
+                    {filteredData.length > 0 ? (
+                        <ResponsiveContainer width="100%" height={400}>
+                            <BarChart data={filteredData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="month" />
+                                <YAxis label={{ value: "kWh", angle: -90, position: "insideLeft" }} />
+                                <Tooltip />
+                                <Bar dataKey="consumption" fill="#82ca9d" />
+                            </BarChart>
+                        </ResponsiveContainer>
+                    ) : (
+                        <p>No data available for {selectedYear}.</p>
+                    )}
+                </>
             )}
         </div>
     );

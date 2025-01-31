@@ -7,9 +7,7 @@ require("dotenv").config();
 
 const app = express();
 app.use(cors());
-app.use(express.json()); // To parse JSON body
-
-// Login Route
+app.use(express.json());
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -25,7 +23,6 @@ app.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    // Generate JWT Token
     const token = jwt.sign({ userId: user.rows[0].id }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
     res.json({ message: "Login successful", token });
@@ -35,7 +32,6 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

@@ -24,7 +24,6 @@ const Banner = ({ children }) => {
     };
 
     const getLinkClass = (path) => {
-        // Return 'active' class if the current location matches the link's path
         return location.pathname === path ? "text active" : "text";
     };
 

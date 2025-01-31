@@ -14,12 +14,10 @@ public class MeteringPointService {
     @Autowired
     private MeteringPointRepository meteringPointRepository;
 
-    // Get all metering points
     public List<MeteringPoint> getAllMeteringPoints() {
         return meteringPointRepository.findAll();
     }
 
-    // Get a single metering point by ID
     public Optional<MeteringPoint> getMeteringPointById(Long id) {
         return meteringPointRepository.findById(id);
     }

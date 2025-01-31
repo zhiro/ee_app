@@ -28,9 +28,4 @@ public class Customer {
 
     @Column(nullable = false)
     private String password;
-
-//    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-//    @JsonBackReference // Prevents recursive JSON serialization
-//    private List<MeteringPoint> meteringPoints;
-
 }

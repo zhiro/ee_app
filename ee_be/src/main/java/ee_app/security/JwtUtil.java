@@ -10,8 +10,8 @@ import java.util.*;
 
 @Component
 public class JwtUtil {
-    private static final String SECRET_KEY = "YourSuperSecretKeyForJWTMustBeLongEnough12345"; // Replace with a secure key
-    private static final long EXPIRATION_TIME = 86400000; // 1 day in milliseconds
+    private static final String SECRET_KEY = "YourSuperSecretKeyForJWTMustBeLongEnough12345";
+    private static final long EXPIRATION_TIME = 86400000;
 
     private Key key() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());

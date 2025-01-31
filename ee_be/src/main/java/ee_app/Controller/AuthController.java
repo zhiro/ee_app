@@ -20,18 +20,18 @@ public class AuthController {
         this.jwtUtil = jwtUtil;
     }
 
-    // **User Registration Endpoint**
+
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody Customer customer) {
         if (customerRepository.findByUsername(customer.getUsername()).isPresent()) {
             return ResponseEntity.badRequest().body("Username is already taken.");
         }
-        customer.setPassword(new BCryptPasswordEncoder().encode(customer.getPassword())); // Encrypt password
+        customer.setPassword(new BCryptPasswordEncoder().encode(customer.getPassword()));
         customerRepository.save(customer);
         return ResponseEntity.ok("User registered successfully!");
     }
 
-    // **User Login Endpoint**
+
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest request) {
         Optional<Customer> customer = customerRepository.findByUsername(request.getUsername());
@@ -42,10 +42,10 @@ public class AuthController {
         return ResponseEntity.ok(new AuthResponse(token));
     }
 
-    // **Get Logged-in User Data**
+
     @GetMapping("/me")
     public ResponseEntity<?> getUserDetails(@RequestHeader("Authorization") String token) {
-        token = token.replace("Bearer ", ""); // Remove Bearer prefix
+        token = token.replace("Bearer ", "");
 
         if (jwtUtil.validateToken(token)) {
             return ResponseEntity.badRequest().body("Invalid token");
@@ -59,7 +59,7 @@ public class AuthController {
     }
 }
 
-// DTOs for login request & response
+
 class LoginRequest {
     private String username;
     private String password;

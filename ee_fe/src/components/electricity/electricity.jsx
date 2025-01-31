@@ -4,14 +4,12 @@ import { fetchElectricityData } from "../../services/electricityService.jsx";
 const ElectricityData = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Add logged-in state
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Check if the user is logged in
     const token = localStorage.getItem("token");
-    setIsLoggedIn(token !== null); // Update logged-in status based on token
+    setIsLoggedIn(token !== null);
 
-    // If logged in, fetch the data
     if (isLoggedIn) {
       const loadData = async () => {
         try {
@@ -24,7 +22,7 @@ const ElectricityData = () => {
 
       loadData();
     }
-  }, [isLoggedIn]);  // Re-run when `isLoggedIn` changes
+  }, [isLoggedIn]);
 
   if (!isLoggedIn) {
     return (

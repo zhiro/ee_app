@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "/api/metering"; // Adjust if needed
+const API_BASE_URL = "/api/metering";
 
 const MeteringService = {
     fetchMeteringPoints: async (token) => {

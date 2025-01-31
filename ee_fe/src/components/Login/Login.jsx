@@ -3,8 +3,8 @@ import './Login.css';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const [username, setUsername] = useState(""); // State to hold the username
-    const [password, setPassword] = useState(""); // State to hold the password
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
     const handleLoginClick = async () => {
@@ -21,7 +21,7 @@ const Login = () => {
 
             if (response.ok) {
                 localStorage.setItem("token", data.token);
-                navigate("/"); // Redirect after login
+                navigate("/");
             } else {
                 alert(data.message || "Invalid credentials!");
             }

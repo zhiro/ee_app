@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchElectricityData } from "../../services/electricityService"; // Import service
+import { fetchElectricityData } from "../../services/electricityService";
 import "./MarketGraph.css";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from "recharts";
 
@@ -29,7 +29,7 @@ const MarketGraph = () => {
           <span className="current-year">{selectedYear}</span>
           <span
               className={`clickable-year right ${selectedYear >= currentYear ? "disabled" : ""}`}
-              onClick={() => selectedYear < currentYear && setSelectedYear(selectedYear + 1)} // Only increase year if less than current
+              onClick={() => selectedYear < currentYear && setSelectedYear(selectedYear + 1)}
           >
           {selectedYear + 1}
         </span>

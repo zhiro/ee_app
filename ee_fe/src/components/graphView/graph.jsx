@@ -10,16 +10,14 @@ const UserGraph = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        // Check for the token in localStorage (or wherever you're storing it)
         const token = localStorage.getItem("token");
-        setIsLoggedIn(token !== null); // Update login status based on token presence
+        setIsLoggedIn(token !== null);
     }, []);
 
     return (
         <div className="w-full h-96 p-4 bg-white rounded-2xl shadow-lg flex flex-col items-center">
             <h2 className="text-xl font-bold text-center mb-4">User Data Graph</h2>
 
-            {/* If logged in, show the graph, else show the login message */}
             {isLoggedIn ? (
                 <BarChart width={500} height={300} data={data}>
                     <CartesianGrid strokeDasharray="3 3" />

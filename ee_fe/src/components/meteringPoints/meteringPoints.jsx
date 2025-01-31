@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import MeteringService from "../../services/MeteringService"; // Ensure the path is correct
+import MeteringService from "../../services/MeteringService";
 import { useNavigate } from "react-router-dom";
 
 const MeteringPoints = () => {
@@ -12,19 +12,17 @@ const MeteringPoints = () => {
         const token = localStorage.getItem("token");
         setIsLoggedIn(token !== null);
 
-        // Fetch metering points if user is logged in
         if (isLoggedIn && token) {
             fetchMeteringPoints(token);
         }
-    }, [isLoggedIn]); // Depend on isLoggedIn to trigger the fetch
+    }, [isLoggedIn]);
 
-    // Fetch metering points using MeteringService
     const fetchMeteringPoints = async (token) => {
         try {
-            const data = await MeteringService.fetchMeteringPoints(token); // Get data from service
-            setMeteringPoints(data); // Set the data into state
+            const data = await MeteringService.fetchMeteringPoints(token);
+            setMeteringPoints(data);
         } catch (err) {
-            setError("Error fetching metering points: " + err.message); // Handle errors
+            setError("Error fetching metering points: " + err.message);
         }
     };
 

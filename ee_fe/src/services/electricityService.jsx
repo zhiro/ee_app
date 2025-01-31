@@ -14,9 +14,9 @@ export const fetchElectricityData = async (year) => {
         });
 
         return response.data.map((entry) => ({
-            date: new Date(entry.fromDateTime).toLocaleDateString("en-GB", { month: "short" }), // Extracts only the month name
-            centsPerKwh: parseFloat(entry.centsPerKwh.toFixed(3)), // Round to 3 decimal places
-            centsPerKwhWithVat: parseFloat(entry.centsPerKwhWithVat.toFixed(3)), // Round to 3 decimal places
+            date: new Date(entry.fromDateTime).toLocaleDateString("en-GB", { month: "short" }),
+            centsPerKwh: parseFloat(entry.centsPerKwh.toFixed(3)),
+            centsPerKwhWithVat: parseFloat(entry.centsPerKwhWithVat.toFixed(3)),
             eurPerMwh: entry.eurPerMwh,
             eurPerMwhWithVat: entry.eurPerMwhWithVat,
         }));

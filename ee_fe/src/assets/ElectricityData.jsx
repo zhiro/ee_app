@@ -17,10 +17,10 @@ const ElectricityData = () => {
                     },
                 });
 
-                // Format the data for the chart (extract relevant fields)
+
                 const formattedData = response.data.map((entry) => ({
-                    date: new Date(entry.fromDateTime).toLocaleDateString("en-GB", { month: "short", year: "numeric" }), // "Jan 2024"
-                    price: entry.centsPerKwh, // Price per kWh
+                    date: new Date(entry.fromDateTime).toLocaleDateString("en-GB", { month: "short", year: "numeric" }),
+                    price: entry.centsPerKwh,
                 }));
 
                 setData(formattedData);
