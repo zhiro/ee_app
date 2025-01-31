@@ -1,0 +1,72 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 200px;
+    background: #213547;
+    padding-bottom: 30px;
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Header Styling */
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 20px;
+}
+
+.title {
+    color: #ffffff;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+/* Input Styling */
+.inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-label {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.input-field {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+}
+
+.forgot-password {
+    align-self: flex-end;
+    color: #00aaff;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.signup-text {
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.signup-link {
+    color: #00aaff;
+    cursor: pointer;
+    font-weight: bold;
+}
