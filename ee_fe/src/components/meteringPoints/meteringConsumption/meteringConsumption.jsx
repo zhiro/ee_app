@@ -63,8 +63,8 @@ const MeteringConsumption = () => {
     const availableYears = [...new Set(consumptionData.map(entry => new Date(entry.consumption_time).getFullYear()))].sort();
 
     return (
-        <div>
-            <h1>Monthly Consumption for Metering Point {meteringPointId}</h1>
+        <div className="graph-container">
+            <h2>Monthly Consumption for Metering Point {meteringPointId}</h2>
 
             {loading ? (
                 <p>Loading...</p>
@@ -86,7 +86,7 @@ const MeteringConsumption = () => {
                                 <XAxis dataKey="month" />
                                 <YAxis label={{ value: "kWh", angle: -90, position: "insideLeft" }} />
                                 <Tooltip />
-                                <Bar dataKey="consumption" fill="#82ca9d" />
+                                <Bar dataKey="consumption" fill="#8884d8" />
                             </BarChart>
                         </ResponsiveContainer>
                     ) : (

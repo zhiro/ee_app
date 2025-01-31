@@ -1,10 +1,18 @@
 import axios from "axios";
 
-const fetchAllConsumption = async (token) => {
+export const fetchAllConsumption = async (token) => {
+    try {
+
     const response = await axios.get("/api/consumption", {
         headers: { Authorization: `Bearer ${token}` },
     });
-    return response.data;
-};
+    const mappedData = response.data.map(item => ({
+        amount: item.amount,
+        consumption_time: item.consumption_time,
+    }));
 
-export default { fetchAllConsumption };
+    return mappedData;
+    } catch (error) {
+        throw new Error(error.response ? error.response.data : error.message);
+    }
+};

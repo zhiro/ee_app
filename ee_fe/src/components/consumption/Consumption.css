@@ -1,0 +1,63 @@
+.graph-container {
+    width: 90%;
+    max-width: 900px;
+    margin: 20px auto;
+    background: #213547;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.year-navigation {
+    display: flex;
+    font-weight: bold;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.clickable-year {
+    color: #646cff;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.clickable-year:hover {
+    color: #747bff;
+}
+
+.current-year {
+    font-weight: bold;
+    font-size: 1.1rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.left, .right {
+    flex-shrink: 0;
+}
+
+.right {
+    text-align: right;
+}
+
+.right.disabled {
+    color: gray;
+    pointer-events: none;
+}
+
+.right.disabled:hover {
+    cursor: not-allowed;
+}
+
+.custom-tooltip {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 8px;
+    border-radius: 5px;
+    color: white; /* Default text color */
+    font-size: 14px;
+}

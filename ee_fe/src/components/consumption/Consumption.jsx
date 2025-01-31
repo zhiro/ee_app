@@ -1,66 +1,62 @@
-import React, { useEffect, useState } from "react";
-import ConsumptionService from "../../services/ConsumptionService";
-
+import React, { useState } from "react";
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import useConsumptionCombinedData from "./ConsumptionCombinedData";
 
 const Consumption = () => {
-    const [consumptionData, setConsumptionData] = useState([]);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+    const { combinedData, loading, error } = useConsumptionCombinedData(selectedYear);
 
-    useEffect(() => {
-        fetchConsumptionData();
-    }, []);
-
-    const fetchConsumptionData = async () => {
-        try {
-            const token = localStorage.getItem("token");
-            if (!token) {
-                setError("Unauthorized. Please log in.");
-                setLoading(false);
-                return;
-            }
-
-            const data = await ConsumptionService.fetchAllConsumption(token);
-            setConsumptionData(data);
-        } catch (err) {
-            setError("Error fetching consumption data: " + err.message);
-        } finally {
-            setLoading(false);
-        }
-    };
+    const currentYear = new Date().getFullYear();
 
     return (
-        <div>
-            <h1>All Consumption Data</h1>
+        <div className="graph-container">
+            <h2>My Consumption</h2>
+
+            <div className="year-navigation">
+                <span className="clickable-year" onClick={() => setSelectedYear(selectedYear - 1)}>
+                    {selectedYear - 1}
+                </span>
+                <span className="current-year">{selectedYear}</span>
+                <span
+                    className={`clickable-year right ${selectedYear >= currentYear ? "disabled" : ""}`}
+                    onClick={() => selectedYear < currentYear && setSelectedYear(selectedYear + 1)}
+                >
+                    {selectedYear + 1}
+                </span>
+            </div>
+
             {loading ? (
                 <p>Loading...</p>
             ) : error ? (
-                <p style={{ color: "red" }}>{error}</p>
-            ) : consumptionData.length > 0 ? (
-                    <pre>{JSON.stringify(consumptionData, null, 2)}</pre>
-                // <table border="1">
-                //     <thead>
-                //     <tr>
-                //         <th>Date</th>
-                //         <th>Metering Point</th>
-                //         <th>Consumption (kWh)</th>
-                //     </tr>
-                //     </thead>
-                //     <tbody>
-                //     {consumptionData.map((entry) => (
-                //         <tr key={entry.consumption_id}>
-                //             <td>{new Date(entry.consumption_time).toLocaleDateString()}</td>
-                //             <td>{entry.meteringPoint.address}</td>
-                //             <td>{entry.amount}</td>
-                //         </tr>
-                //     ))}
-                //     </tbody>
-                // </table>
+                <p>{"To see the data of your consumption, please log in to the portal first."}</p>
+            ) : combinedData.length > 0 ? (
+                <ResponsiveContainer width="90%" height={400}>
+                    <BarChart data={combinedData}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="date" />
+                        <YAxis label={{ value: "kWh", angle: -90, position: "insideLeft" }} />
+                        <Tooltip  content={<CombinedTooltip />}/>
+                        <Bar dataKey="amount" fill="#8884d8" barSize={50} />
+                    </BarChart>
+                </ResponsiveContainer>
             ) : (
-                <p>No consumption data available.</p>
+                <p>No consumption data available for {selectedYear}.</p>
             )}
+            <pre>{JSON.stringify(combinedData, null, 2)}</pre>
         </div>
     );
+};
+const CombinedTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+        const totalCost = (payload[0].value * payload[0].payload.centsPerKwhWithVat) / 100;
+        return (
+            <div className="custom-tooltip">
+                <p className="intro">{`${payload[0].value} kWh`}</p>
+                <p className="label">{`${totalCost.toFixed(2)} €`}</p>
+            </div>
+        );
+    }
+    return null;
 };
 
 export default Consumption;

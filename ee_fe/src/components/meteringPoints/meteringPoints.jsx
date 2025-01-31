@@ -27,7 +27,7 @@ const MeteringPoints = () => {
     };
 
     if (!isLoggedIn) {
-        return <div>You need to be logged in to view metering points data.</div>;
+        return <div>To see the data of your consumption, please log in to the portal first.</div>;
     }
 
     return (
