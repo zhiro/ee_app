@@ -39,6 +39,7 @@ const MeteringConsumption = () => {
                 <p style={{ color: "red" }}>{error}</p>
             ) : consumptionData.length > 0 ? (
                 <ul>
+                    <pre>{JSON.stringify(consumptionData, null, 2)}</pre>
                     {consumptionData.map((entry, index) => (
                         <li key={index}>
                             <strong>Date:</strong> {entry.date} | <strong>Consumption:</strong> {entry.amount} kWh

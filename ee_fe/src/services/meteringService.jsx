@@ -11,7 +11,7 @@ const MeteringService = {
     },
 
     fetchConsumptionData: async (meteringPointId, token) => {
-        const response = await axios.get(`${API_BASE_URL}/${meteringPointId}/consumptions`, {
+        const response = await axios.get(`${API_BASE_URL}-points/${meteringPointId}/consumptions`, {
             headers: { Authorization: `Bearer ${token}` },
         });
         return response.data;
