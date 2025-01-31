@@ -6,6 +6,7 @@ import MeteringPoints from "./components/meteringPoints/meteringPoints.jsx"
 import MeteringConsumption from "./components/meteringPoints/meteringConsumption/meteringConsumption.jsx"
 import HomePage from "./components/marketGraph/MarketGraph.jsx"
 import Login from "./components/Login/Login.jsx";
+import Consumption from "./components/consumption/Consumption.jsx";
 
 // const PrivateRoute = ({ element }) => {
 //   const token = localStorage.getItem("token");
@@ -23,6 +24,7 @@ function App() {
             <Route path="/electricity" element={<ElectricityData />} />
             <Route path="/metering" element={<MeteringPoints />} />
             <Route path="/metering/:meteringPointId/consumption" element={<MeteringConsumption />} />
+            <Route path="/consumption" element={<Consumption />} />
 
 {/*              <Route path="/graph" element={<PrivateRoute element={<GraphView />} />} /> */}
 {/*         <Route path="*" element={<NotFound />} />  Catch-all route for 404 */}

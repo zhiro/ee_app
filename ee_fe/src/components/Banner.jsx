@@ -38,8 +38,8 @@ const Banner = ({ children }) => {
                     <div className={getLinkClass("/metering")}>
                         <Link to="/metering">My Metering Points</Link>
                     </div>
-                    <div className={getLinkClass("/electricity")}>
-                        <Link to="/electricity">My Consumption</Link>
+                    <div className={getLinkClass("/consumption")}>
+                        <Link to="/consumption">My Consumption</Link>
                     </div>
                 </div>
 

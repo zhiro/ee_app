@@ -8,4 +8,7 @@ import java.util.List;
 @Repository
 public interface ConsumptionRepository extends JpaRepository<Consumption, Long> {
     List<Consumption> findByMeteringPointMeteringPointId(Long meteringPointId);
+
+    List<Consumption> findByMeteringPointCustomerCustomerId(Long CustomerId);
+
 }

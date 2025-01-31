@@ -22,7 +22,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/register", "/api/auth/login", "/api/electricity").permitAll()
-                        .requestMatchers("/api/metering-points", "/api/metering-points/**").authenticated()
+                        .requestMatchers("/api/metering-points", "/api/metering-points/**", "/api/consumption").authenticated()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

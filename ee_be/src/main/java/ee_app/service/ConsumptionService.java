@@ -13,7 +13,15 @@ public class ConsumptionService {
     @Autowired
     private ConsumptionRepository consumptionRepository;
 
+    public List<Consumption> GetAllConsumption() {
+        return consumptionRepository.findAll();
+    }
+
     public List<Consumption> getConsumptionsByMeteringPointId(Long meteringPointId) {
         return consumptionRepository.findByMeteringPointMeteringPointId(meteringPointId);
+    }
+
+    public List<Consumption> getConsumptionsByCustomerId(Long customerId) {
+        return consumptionRepository.findByMeteringPointCustomerCustomerId(customerId);
     }
 }
