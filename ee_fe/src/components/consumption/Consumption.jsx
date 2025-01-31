@@ -42,7 +42,6 @@ const Consumption = () => {
             ) : (
                 <p>No consumption data available for {selectedYear}.</p>
             )}
-            <pre>{JSON.stringify(combinedData, null, 2)}</pre>
         </div>
     );
 };
