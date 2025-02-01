@@ -1,18 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import useConsumptionCombinedData from "./ConsumptionCombinedData";
 
 const Consumption = () => {
     const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
     const { combinedData, loading, error } = useConsumptionCombinedData(selectedYear);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        setIsLoggedIn(token !== null);
+    }, []);
 
     const currentYear = new Date().getFullYear();
+
+    if (!isLoggedIn) {
+        return (
+
+            <div className="graph-container">
+                <h2>My Consumption</h2>
+                <div>To see the data of your consumption, please log in to the portal first.</div>
+            </div>
+        )
+    }
 
     return (
         <div className="graph-container">
             <h2>My Consumption</h2>
 
-            <div className="year-navigation">
+            {isLoggedIn && (
+                <div className="year-navigation">
                 <span className="clickable-year" onClick={() => setSelectedYear(selectedYear - 1)}>
                     {selectedYear - 1}
                 </span>
@@ -24,6 +41,7 @@ const Consumption = () => {
                     {selectedYear + 1}
                 </span>
             </div>
+            )}
 
             {loading ? (
                 <p>Loading...</p>

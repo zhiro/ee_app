@@ -27,23 +27,45 @@ const MeteringPoints = () => {
     };
 
     if (!isLoggedIn) {
-        return <div>To see the data of your consumption, please log in to the portal first.</div>;
+        return (
+
+            <div className="graph-container">
+                <h2>Metering Points</h2>
+                <div>To see the data of your consumption, please log in to the portal first.</div>
+            </div>
+            )
     }
 
     return (
-        <div>
-            <h1>Metering Points</h1>
+        <div className="graph-container">
+            <h2>Metering Points</h2>
             {error ? (
                 <p style={{ color: "red" }}>{error}</p>
             ) : meteringPoints.length > 0 ? (
-                <ul>
+                <ul style={{ listStyle: "none", paddingLeft: "0" }}>
                     {meteringPoints.map((meteringPoint) => (
                         <li
                             key={meteringPoint.meteringPointId}
-                            onClick={() => navigate(`/metering/${meteringPoint.meteringPointId}/consumption`)}
-                            style={{ cursor: "pointer", marginBottom: "10px" }}
+                            style={{ marginBottom: "10px" }}
                         >
-                            <div><strong>Address:</strong> {meteringPoint.address}</div>
+                            <div style={{ textAlign: "left" }}>
+                                <strong>Address:</strong>
+                                <div>
+                                <span
+                                    onClick={() =>
+                                        navigate(
+                                            `/metering/${meteringPoint.meteringPointId}/consumption`
+                                        )
+                                    }
+                                    style={{
+                                        cursor: "pointer",
+                                        display: "inline-block", // Ensures it's only clickable around the address
+                                    }}
+                                >
+                                    {meteringPoint.address}
+                                </span>
+                                </div>
+                            </div>
                         </li>
                     ))}
                 </ul>
@@ -52,6 +74,7 @@ const MeteringPoints = () => {
             )}
         </div>
     );
+
 };
 
 export default MeteringPoints;
