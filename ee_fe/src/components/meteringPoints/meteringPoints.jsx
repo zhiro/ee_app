@@ -59,7 +59,8 @@ const MeteringPoints = () => {
                                     }
                                     style={{
                                         cursor: "pointer",
-                                        display: "inline-block", // Ensures it's only clickable around the address
+                                        display: "inline-block",
+                                        color:"#646cff",
                                     }}
                                 >
                                     {meteringPoint.address}
