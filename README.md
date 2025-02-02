@@ -5,6 +5,8 @@ If for some reason the sql restore does not work then you can use the Create tab
 
 Be sure to update application.properties (ee_be/src/main/resources/application.properties) to match your local database server.
 
+Update WebConfig (ee_be/src/main/java/ee_app/config/WebConfig.java) to match the port value from your front end localhost.
+
 To access backend move to \ee_be\, run "npm install" and you can start the project via ./gradlew bootRun
 
 For the frontend it is similar, make your way to \ee_fe\, run "npm install" followed by "npm run dev"
