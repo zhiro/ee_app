@@ -1,9 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import Consumption from '../Consumption'; // Adjust the import path as needed
+import Consumption from './Consumption.jsx';
 
 test('renders year navigation when logged in', () => {
-    // Mock the localStorage to simulate being logged in
-    Storage.prototype.getItem = jest.fn(() => 'some-token'); // Simulate token being in localStorage
+    Storage.prototype.getItem = jest.fn(() => 'some-token');
 
     render(<Consumption />);
 
@@ -11,7 +10,7 @@ test('renders year navigation when logged in', () => {
 });
 
 test('shows "please log in" message when not logged in', () => {
-    Storage.prototype.getItem = jest.fn(() => null); // Simulate not being logged in
+    Storage.prototype.getItem = jest.fn(() => null);
 
     render(<Consumption />);
 

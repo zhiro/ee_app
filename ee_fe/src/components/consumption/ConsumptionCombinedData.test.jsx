@@ -1,4 +1,4 @@
-import useConsumptionCombinedData from '../ConsumptionCombinedData.jsx';
+import useConsumptionCombinedData from './ConsumptionCombinedData.jsx';
 
 describe('combineData', () => {
     it('should aggregate the consumption data by month for the selected year', () => {
